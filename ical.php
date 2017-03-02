@@ -3,12 +3,15 @@
 # Class to create an iCal feed
 # iCalendar overview at: https://en.wikipedia.org/wiki/ICalendar
 # Spec at http://www.kanzaki.com/docs/ical/ and a tutorial at http://stevethomas.com.au/php/how-to-build-an-ical-calendar-with-php-and-mysql.html
-# Validate at http://icalvalid.cloudapp.net/
+# Validate at https://icalendar.org/validator.html
+
+# Note: this file and its callers must not have a UTF-8 BOM: https://productforums.google.com/forum/#!topic/calendar/eicThu0gGdw
+
 
 /*
- * Coding copyright Martin Lucas-Smith, University of Cambridge, 2003-13
- * Version 1.0.0
- * Distributed under the terms of the GNU Public Licence - www.gnu.org/copyleft/gpl.html
+ * Coding copyright Martin Lucas-Smith, University of Cambridge, 2003-17
+ * Version 1.0.1
+ * Distributed under the terms of the GNU Public Licence - http://www.gnu.org/copyleft/gpl.html
  * Download latest from: http://download.geog.cam.ac.uk/projects/ical/
  */
 
@@ -62,13 +65,16 @@ class ical
 		$lines[] = 'BEGIN:VTIMEZONE';
 		$lines[] = 'TZID:UTC';
 		$lines[] = 'TZNAME:UTC';
+		$lines[] = 'BEGIN:STANDARD';
 		$lines[] = 'TZOFFSETFROM:+0000';
 		$lines[] = 'TZOFFSETTO:+0000';
+		$lines[] = 'END:STANDARD';
 		$lines[] = 'END:VTIMEZONE';
 		
 		# Add each booking
 		foreach ($events as $id => $event) {
 			$lines[] = 'BEGIN:VEVENT';
+			$lines[] = 'DTSTAMP:' . $this->formatterDatetime (time ());
 			$lines[] = 'UID:' . $id;
 			$lines[] = 'SUMMARY:' . $this->formatterText ($event['title']);
 			$lines[] = 'STATUS:' . ((isSet ($event['draft']) && $event['draft']) ? 'TENTATIVE' : 'CONFIRMED');
