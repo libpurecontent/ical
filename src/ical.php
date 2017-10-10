@@ -10,7 +10,7 @@
 
 /*
  * Coding copyright Martin Lucas-Smith, University of Cambridge, 2003-17
- * Version 1.0.1
+ * Version 1.0.2
  * Distributed under the terms of the GNU Public Licence - http://www.gnu.org/copyleft/gpl.html
  * Download latest from: http://download.geog.cam.ac.uk/projects/ical/
  */
@@ -163,9 +163,11 @@ class ical
 		
 		# Compile the HTML
 		$html .= "\n<div class=\"graybox\">";
-		$html .= "\n<p class=\"comment\">Paste this URL into your calendar application:</p>";
+		$html .= "\n<p class=\"comment\">Copy and paste this web address into your calendar application:</p>";
 		$url = htmlspecialchars ($link);
-		$html .= "\n<p><a href=\"{$url}\"><img src=\"/images/icons/extras/ical.gif\" alt=\"\" style=\"width: 36px; height: 14px\" border=\"0\" /> &nbsp; <strong><tt>{$_SERVER['_SITE_URL']}{$url}</tt></strong></a></p>";
+		$html .= "\n<p><strong><tt>{$_SERVER['_SITE_URL']}{$url}</tt></strong></p>";
+		// $html .= "\n<img src=\"/images/icons/extras/ical.gif\" alt=\"\" style=\"width: 36px; height: 14px\" border=\"0\" />";
+		$html .= "\n<p class=\"comment\">There are instructions below for different calendaring systems.</p>";
 		$html .= "\n</div>";
 		
 		# Add Google Calendar instructions
@@ -195,10 +197,7 @@ class ical
 		
 		# Apple Calendar instructions
 		$html .= "\n<h3>Apple Calendar instructions</h3>";
-		$html .= "\n<ol>";
-		$html .= "\n\t<li>You should be able to subscribe just by clicking on the link above.</li>";
-		$html .= "\n</ol>";
-		$html .= "\n<p>Alternatively, Apple provide <a href=\"https://support.apple.com/kb/PH11523\" target=\"_blank\">full instructions</a>:</p>";
+		$html .= "\n<p>Apple provides <a href=\"https://support.apple.com/kb/PH11523\" target=\"_blank\">full instructions</a>:</p>";
 		$html .= "\n<ol>";
 		$html .= "\n\t<li>Copy the above link by highlighting it and pressing Control-C .</li>";
 		$html .= "\n\t<li>In Calendar, choose File > New Calendar Subscription.</li>";
