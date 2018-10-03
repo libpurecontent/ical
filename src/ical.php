@@ -2,7 +2,7 @@
 
 # Class to create an iCal feed
 # iCalendar overview at: https://en.wikipedia.org/wiki/ICalendar
-# Spec at http://www.kanzaki.com/docs/ical/ and a tutorial at http://stevethomas.com.au/php/how-to-build-an-ical-calendar-with-php-and-mysql.html
+# Spec at https://www.kanzaki.com/docs/ical/ and a tutorial at https://stevethomas.com.au/php/how-to-build-an-ical-calendar-with-php-and-mysql.html
 # Validate at https://icalendar.org/validator.html
 
 # Note: this file and its callers must not have a UTF-8 BOM: https://productforums.google.com/forum/#!topic/calendar/eicThu0gGdw
@@ -10,9 +10,9 @@
 
 /*
  * Coding copyright Martin Lucas-Smith, University of Cambridge, 2003-17
- * Version 1.0.2
- * Distributed under the terms of the GNU Public Licence - http://www.gnu.org/copyleft/gpl.html
- * Download latest from: http://download.geog.cam.ac.uk/projects/ical/
+ * Version 1.0.3
+ * Distributed under the terms of the GNU Public Licence - https://www.gnu.org/copyleft/gpl.html
+ * Download latest from: https://download.geog.cam.ac.uk/projects/ical/
  */
 
 
@@ -47,7 +47,7 @@ class ical
 		# Start an array of output lines
 		$lines = array ();
 		
-		# Ensure the timezone (used by the date() function below) is set to serve UTC explicitly, caching the current one so that this can be reverted below; see http://stackoverflow.com/a/2387213/180733
+		# Ensure the timezone (used by the date() function below) is set to serve UTC explicitly, caching the current one so that this can be reverted below; see https://stackoverflow.com/a/2387213/180733
 		$defaultTimezone = date_default_timezone_get ();	// Cache current, so it can be reset at end
 		date_default_timezone_set ('UTC');
 		
@@ -118,21 +118,21 @@ class ical
 	}
 	
 	
-	# iCal UTC conversion; see: http://www.php.net/gmmktime#83226 and http://stackoverflow.com/questions/12234925/php-writing-a-ics-ical-file-date-formatting and http://stackoverflow.com/questions/7678830
+	# iCal UTC conversion; see: https://www.php.net/gmmktime#83226 and https://stackoverflow.com/questions/12234925/php-writing-a-ics-ical-file-date-formatting and https://stackoverflow.com/questions/7678830
 	private function formatterDatetime ($unixtime)
 	{
     	return date ('Ymd\THis\Z', $unixtime);
 	}
 	
 	
-	# iCal format helper; see section 4.1 of http://tools.ietf.org/html/rfc2445#section-4.1
+	# iCal format helper; see section 4.1 of https://tools.ietf.org/html/rfc2445#section-4.1
 	private function formatterText ($string)
 	{
-		# Escape the three special characters (,;\) - see http://stackoverflow.com/questions/1590368/should-a-colon-character-be-escaped-in-text-values-in-icalendar-rfc2445
+		# Escape the three special characters (,;\) - see https://stackoverflow.com/questions/1590368/should-a-colon-character-be-escaped-in-text-values-in-icalendar-rfc2445
 		$string = preg_replace ('/\\\\/', '\\\\\\\\', $string);
 		$string = preg_replace ('/([,;])/', '\\\\\\1', $string);
 		
-		# Retain a literal slash-n (newline) - see http://stackoverflow.com/questions/666929/encoding-newlines-in-ical-files
+		# Retain a literal slash-n (newline) - see https://stackoverflow.com/questions/666929/encoding-newlines-in-ical-files
 		$string = str_replace ('\\\\n', '\\n' . "\n", $string);	// The real newline is added on to ensure that word-wrapping doesn't then result in missing spaces
 		
 		# RFC2445 requires CRLF + whitespace for linebreaks
@@ -165,34 +165,35 @@ class ical
 		$html .= "\n<div class=\"graybox\">";
 		$html .= "\n<p class=\"comment\">Copy and paste this web address into your calendar application:</p>";
 		$url = htmlspecialchars ($link);
-		$html .= "\n<p><strong><tt>{$_SERVER['_SITE_URL']}{$url}</tt></strong></p>";
+		$cssStyles = "overflow-wrap: break-word; word-wrap: break-word; -ms-word-break: break-all; word-break: break-all; word-break: break-word; -moz-hyphens: auto; -webkit-hyphens: auto; hyphens: auto;";	// https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
+		$html .= "\n<p style=\"{$cssStyles}\"><strong><tt>{$_SERVER['_SITE_URL']}{$url}</tt></strong></p>";
 		// $html .= "\n<img src=\"/images/icons/extras/ical.gif\" alt=\"\" style=\"width: 36px; height: 14px\" border=\"0\" />";
 		$html .= "\n<p class=\"comment\">There are instructions below for different calendaring systems.</p>";
 		$html .= "\n</div>";
+		
+		# Add iOS instructions
+		$html .= "\n<h3>iPhone instructions</h3>";
+		$html .= "\n<ol>";
+		$html .= "\n\t<li>Copy the above link by holding down on the link until a menu with the option 'Copy' appears. Choose 'Copy'.</li>";
+		$html .= "\n\t<li>Tap on the Settings app from the iPhone home screen.</li>";
+		$html .= "\n\t<li>Tap on 'Passwords &amp; accounts'. (On older versions of iOS this was in 'Mail, Contacts, Calendars'.)</li>";
+		$html .= "\n\t<li>Tap the 'Add Account' button and select 'Other' in the list of account types.</li>";
+		$html .= "\n\t<li>Choose the 'Add Subscribed Calendar' option at the bottom of the screen.</li>";
+		$html .= "\n\t<li>Hold down on the server field and tap 'Paste'. Tap the 'Next' button.</li>";
+		$html .= "\n\t<li>Tap 'Save' once more to finish adding it to your iPhone.</li>";
+		$html .= "\n</ol>";
 		
 		# Add Google Calendar instructions
 		$html .= "\n<h3>Google Calendar instructions</h3>";
 		$html .= "\n<p>To add this in Google Calendar:</p>";
 		$html .= "\n<ol>";
 		$html .= "\n\t<li>Copy the above link by highlighting it and pressing Control-C .</li>";
-		$html .= "\n\t" . '<li>Log in to <a href="http://www.google.com/calendar" target="_blank">Google Calendar</a>.</li>';
+		$html .= "\n\t" . '<li>Log in to <a href="https://www.google.com/calendar" target="_blank">Google Calendar</a>.</li>';
 		$html .= "\n\t<li>Once you are logged in, look on the left of the screen for 'Other calendars'. Click on the arrow box to the right of that.</li>";
 		$html .= "\n\t<li>From the menu that appears, click 'Add by URL'.</li>";
 		$html .= "\n\t<li>Paste in the address you copied above, and click OK.</li>";
 		$html .= "\n\t<li>Wait a few seconds, and the calendar will now be listed under 'Other calendars'.</li>";
 		$html .= "\n\t<li>If there isn't a colour next to the calendar, click on its name to show it. This toggles on/off this calendar in your listing, adding it any others already present.</li>";
-		$html .= "\n</ol>";
-		
-		# Add iOS instructions
-		$html .= "\n<h3>iPhone instructions</h3>";
-		$html .= "\n<ol>";
-		$html .= "\n\t<li>Copy the above link by holding down on the link until a menu with the option 'Copy' appears. Choose 'Copy'.</li>";
-		$html .= "\n\t<li>Tap on the Settings icon from the iPhone home screen.</li>";
-		$html .= "\n\t<li>Tap on 'Mail, Contacts, Calendars' from the list of device settings.</li>";
-		$html .= "\n\t<li>Tap the 'Add Account' button and select 'Other' in the list of account types.</li>";
-		$html .= "\n\t<li>Choose the 'Add Subscribed Calendar' option at the bottom of the screen.</li>";
-		$html .= "\n\t<li>Hold down on the server field and tap 'Paste'. Tap the 'Next' button.</li>";
-		$html .= "\n\t<li>Tap 'Save' once more to finish adding it to your iPhone.</li>";
 		$html .= "\n</ol>";
 		
 		# Apple Calendar instructions
@@ -209,6 +210,7 @@ class ical
 		# List of software
 		$html .= "\n" . '<h3>What software supports iCal?</h3>';
 		$html .= "\n<ul>";
+		$html .= "\n\t<li>iOS and Android phones</li>";
 		$html .= "\n\t<li>Google Calendar</li>";
 		$html .= "\n\t<li>Microsoft Outlook</li>";
 		$html .= "\n\t<li>Apple Calendar</li>";
