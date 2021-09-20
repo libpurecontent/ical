@@ -9,8 +9,8 @@
 
 
 /*
- * Coding copyright Martin Lucas-Smith, University of Cambridge, 2003-17
- * Version 1.0.3
+ * Coding copyright Martin Lucas-Smith, University of Cambridge, 2003-21
+ * Version 1.0.4
  * Distributed under the terms of the GNU Public Licence - https://www.gnu.org/copyleft/gpl.html
  * Download latest from: https://download.geog.cam.ac.uk/projects/ical/
  */
@@ -81,6 +81,9 @@ class ical
 			$lines[] = 'DTSTART:' . $this->formatterDatetime ($event['startTime']);
 			$lines[] = 'DTEND:' . $this->formatterDatetime ($event['untilTime']);
 			$lines[] = 'LOCATION:' . $this->formatterText ($event['location']);
+			if (isSet ($event['url']) && strlen ($event['url'])) {
+				$lines[] = 'URL:' . $this->formatterText ($event['url']);
+			}
 			if ($event['description']) {
 				$description = $this->formatterText ($event['description']);
 				$lines[] = 'COMMENT:' . $description;
@@ -174,10 +177,11 @@ class ical
 		# Add iOS instructions
 		$html .= "\n<h3>iPhone instructions</h3>";
 		$html .= "\n<ol>";
-		$html .= "\n\t<li>Copy the above link by holding down on the link until a menu with the option 'Copy' appears. Choose 'Copy'.</li>";
+		$html .= "\n\t<li>Copy the above link by holding down on the link until a menu with the option 'Copy' appears. Drag across the whole URL. Choose 'Copy'.</li>";
 		$html .= "\n\t<li>Tap on the Settings app from the iPhone home screen.</li>";
-		$html .= "\n\t<li>Tap on 'Passwords &amp; accounts'. (On older versions of iOS this was in 'Mail, Contacts, Calendars'.)</li>";
-		$html .= "\n\t<li>Tap the 'Add Account' button and select 'Other' in the list of account types.</li>";
+		$html .= "\n\t<li>Tap on 'Calendar'. (On older versions of iOS this was in 'Passwords &amp; accounts' or 'Mail, Contacts, Calendars'.)</li>";
+		$html .= "\n\t<li>Tap 'Accounts'.</li>";
+		$html .= "\n\t<li>Tap 'Add Account', and select 'Other' in the list of account types.</li>";
 		$html .= "\n\t<li>Choose the 'Add Subscribed Calendar' option at the bottom of the screen.</li>";
 		$html .= "\n\t<li>Hold down on the server field and tap 'Paste'. Tap the 'Next' button.</li>";
 		$html .= "\n\t<li>Tap 'Save' once more to finish adding it to your iPhone.</li>";
