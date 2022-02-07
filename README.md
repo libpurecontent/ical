@@ -1,6 +1,6 @@
 # purecontent-ical
 
-Simple library to create an iCal feed from events.
+Simple PHP library to create an iCal feed from events.
 
 Includes an instructions page.
 
