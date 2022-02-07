@@ -9,8 +9,8 @@
 
 
 /*
- * Coding copyright Martin Lucas-Smith, University of Cambridge, 2003-21
- * Version 1.0.4
+ * Coding copyright Martin Lucas-Smith, University of Cambridge, 2003-22
+ * Version 1.0.5
  * Distributed under the terms of the GNU Public Licence - https://www.gnu.org/copyleft/gpl.html
  * Download latest from: https://download.geog.cam.ac.uk/projects/ical/
  */
@@ -173,6 +173,13 @@ class ical
 		// $html .= "\n<img src=\"/images/icons/extras/ical.gif\" alt=\"\" style=\"width: 36px; height: 14px\" border=\"0\" />";
 		$html .= "\n<p class=\"comment\">There are instructions below for different calendaring systems.</p>";
 		$html .= "\n</div>";
+		
+		# Add Outlook instructions
+		$html .= "\n<h3>Outlook instructions</h3>";
+		$html .= "\n<ol>";
+		$html .= "\n\t<li>Follow <a href=\"https://support.microsoft.com/en-gb/topic/cff1429c-5af6-41ec-a5b4-74f2c278e98c\" target=\"_blank\">Microsoft's instructions</a> for '<strong>Subscribe to a calendar</strong>', i.e. the 'Subscribe from web' link.</li>";
+		$html .= "\n\t<li>Do <strong>not</strong> use the link 'Upload from file' which will not update the bookings if they change.</li>";
+		$html .= "\n</ol>";
 		
 		# Add iOS instructions
 		$html .= "\n<h3>iPhone instructions</h3>";
