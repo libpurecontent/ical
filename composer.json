@@ -1,0 +1,12 @@
+{
+    "name": "libpurecontent/ical",
+    "description": "Simple PHP library to create an iCal feed from events",
+    "type": "library",
+    "license": "GPL-3.0-only",
+    "minimum-stability": "stable",
+    "require": {},
+    "version": "1.0.5",
+    "autoload": {
+        "files": ["ical.php"]
+    }
+}
