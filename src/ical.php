@@ -8,15 +8,6 @@
 # Note: this file and its callers must not have a UTF-8 BOM: https://productforums.google.com/forum/#!topic/calendar/eicThu0gGdw
 
 
-/*
- * Coding copyright Martin Lucas-Smith, University of Cambridge, 2003-22
- * Version 1.0.5
- * Distributed under the terms of the GNU Public Licence - https://www.gnu.org/copyleft/gpl.html
- * Download latest from: https://download.geog.cam.ac.uk/projects/ical/
- */
-
-
-
 /* Requires an array
 
 $events = array (
