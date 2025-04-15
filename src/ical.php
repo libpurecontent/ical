@@ -165,15 +165,31 @@ class ical
 		$html .= "\n<p class=\"comment\">There are instructions below for different calendaring systems.</p>";
 		$html .= "\n</div>";
 		
-		# Add Outlook instructions
-		$html .= "\n<h3>Outlook instructions</h3>";
+		# Add Outlook online (Office 365) instructions
+		$html .= "\n<h3>Outlook online</h3>";
 		$html .= "\n<ol>";
 		$html .= "\n\t<li>Follow <a href=\"https://support.microsoft.com/en-gb/topic/cff1429c-5af6-41ec-a5b4-74f2c278e98c\" target=\"_blank\">Microsoft's instructions</a> for '<strong>Subscribe to a calendar</strong>', i.e. the 'Subscribe from web' link.</li>";
-		$html .= "\n\t<li>Do <strong>not</strong> use the link 'Upload from file' which will not update the bookings if they change.</li>";
+		$html .= "\n\t<li>Do <strong>not</strong> use the upload option, as that will not update the bookings if they change.</li>";
 		$html .= "\n</ol>";
 		
-		# Add iOS instructions
-		$html .= "\n<h3>iPhone instructions</h3>";
+		# Add Outlook (new) for PC instructions
+		$html .= "\n<h3>Outlook (new) for PC</h3>";
+		$html .= "\n<ol>";
+		$html .= "\n\t<li>Click on the calendar button (left panel, often the second icon)</li>";
+		$html .= "\n\t<li>Click 'Add calendar'</li>";
+		$html .= "\n\t<li>Click 'Subscribe from calendar' (<strong>not</strong> the upload option)</li>";
+		$html .= "\n\t<li>Paste in the address you copied above.</li>";
+		$html .= "\n\t<li>Give the calendar a name.</li>";
+		$html .= "\n\t<li>Click OK.</li>";
+		$html .= "\n</ol>";
+		
+		# Add Outlook for Mac instructions
+		$html .= "\n<h3>Outlook for Mac</h3>";
+		$html .= "\n<p>Outlook for Mac does not have a button to subscribe to a calendar directly, but you can log in to the Outlook website to add it there, and this will then sync to your Outlook for Mac application.</p>";
+		$html .= "\n<p>Use the same instructions for Outlook online as above.</p>";
+		
+		# Add iPhone (iOS) instructions
+		$html .= "\n<h3>iPhone (iOS)</h3>";
 		$html .= "\n<ol>";
 		$html .= "\n\t<li>Copy the above link by holding down on the link until a menu with the option 'Copy' appears. Drag across the whole URL. Choose 'Copy'.</li>";
 		$html .= "\n\t<li>Tap on the Settings app from the iPhone home screen.</li>";
@@ -186,7 +202,7 @@ class ical
 		$html .= "\n</ol>";
 		
 		# Add Google Calendar instructions
-		$html .= "\n<h3>Google Calendar instructions</h3>";
+		$html .= "\n<h3>Google Calendar</h3>";
 		$html .= "\n<p>To add this in Google Calendar:</p>";
 		$html .= "\n<ol>";
 		$html .= "\n\t<li>Copy the above link by highlighting it and pressing Control-C .</li>";
@@ -199,7 +215,7 @@ class ical
 		$html .= "\n</ol>";
 		
 		# Apple Calendar instructions
-		$html .= "\n<h3>Apple Calendar instructions</h3>";
+		$html .= "\n<h3>Apple Calendar</h3>";
 		$html .= "\n<p>Apple provides <a href=\"https://support.apple.com/kb/PH11523\" target=\"_blank\">full instructions</a>:</p>";
 		$html .= "\n<ol>";
 		$html .= "\n\t<li>Copy the above link by highlighting it and pressing Control-C .</li>";
@@ -212,9 +228,9 @@ class ical
 		# List of software
 		$html .= "\n" . '<h3>What software supports iCal?</h3>';
 		$html .= "\n<ul>";
+		$html .= "\n\t<li>Microsoft Outlook</li>";
 		$html .= "\n\t<li>iOS and Android phones</li>";
 		$html .= "\n\t<li>Google Calendar</li>";
-		$html .= "\n\t<li>Microsoft Outlook</li>";
 		$html .= "\n\t<li>Apple Calendar</li>";
 		$html .= "\n\t<li>Thunderbird (with the Lightning extension)</li>";
 		$html .= "\n\t<li>Evolution</li>";
